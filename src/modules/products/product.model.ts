@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import  { Schema, model } from "mongoose";
 import { TInventory, TProduct, TVariant } from "./product.interface";
   
 // variant sub schema
@@ -10,7 +10,7 @@ import { TInventory, TProduct, TVariant } from "./product.interface";
 
 // inventory sub schema
 const inventorySchema = new Schema<TInventory>({
-  quantity: { type: Number, default: 0 },
+  quantity: { type: Number, required: true },
   inStock: { type: Boolean, required: true },
 });
 
@@ -21,8 +21,8 @@ const productSchema = new Schema<TProduct>({
   price: { type: Number, required: true },
   category: { type: String, required: true },
   tags: { type: [String], required: true },
-  variants: { type: [variantSchema], required: true },
-  inventory: { type: inventorySchema, required: true }
+  variants: {type:[variantSchema]},
+  inventory: {type:inventorySchema}
 });
 
 // productSchema model

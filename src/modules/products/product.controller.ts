@@ -2,12 +2,12 @@ import { Request, Response } from "express";
 import { ProductServices } from "./product.service";
 
 
-const createProduct = async (req:Request, res: Response) =>{
+const addProduct = async (req:Request, res: Response) =>{
     try {
-        const product = req.body;
+        const {product: productData} = req.body;
 
     // will call service function to send this data
-    const result = await ProductServices.createProductDB(product)
+    const result = await ProductServices.createProductDB(productData)
 
     // send response
     res.status(200).json({
@@ -23,6 +23,6 @@ const createProduct = async (req:Request, res: Response) =>{
 
 
 export const ProductControllers ={
-    createProduct,
-    
+    addProduct,
+
 }
