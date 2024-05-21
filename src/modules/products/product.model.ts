@@ -26,5 +26,5 @@ const productSchema = new Schema<TProduct>({
 });
 
 // productSchema model
-export const Product = model<TProduct>('Product', productSchema);
+export const ProductModel = model<TProduct>('Product', productSchema);
 
