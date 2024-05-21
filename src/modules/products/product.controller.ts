@@ -28,12 +28,32 @@ const addProduct = async (req:Request, res: Response) =>{
 const getAllProduct = async (req:Request, res: Response) =>{
     try {
   
-    const result = await ProductServices.getAllProductDB()
+    const result = await ProductServices.getAllProductFromDB()
 
     // send response
     res.status(200).json({
         success: true,
         message: 'Products fetched successfully',
+        data: result,
+    })
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+// retieve single product
+const getSingleProduct = async (req:Request, res: Response) =>{
+    try {
+    const {productId} = req.params;
+  
+    const result = await ProductServices.getSingleProductFromDB(productId)
+
+    // send response
+    res.status(200).json({
+        success: true,
+        message: 'Product fetched successfully',
         data: result,
     })
     } catch (error) {
@@ -51,5 +71,6 @@ const getAllProduct = async (req:Request, res: Response) =>{
 export const ProductControllers ={
     addProduct,
     getAllProduct,
+    getSingleProduct,
 
 }

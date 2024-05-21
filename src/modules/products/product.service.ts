@@ -9,15 +9,22 @@ const createProductDB = async (product:TProduct) =>{
 }
 
 // retrieve all products
-const getAllProductDB = async()=>{
+const getAllProductFromDB = async()=>{
     const result = await ProductModel.find();
+    return result;
+}
+
+// retrieve a specific product by id
+const getSingleProductFromDB = async(_id:string)=>{
+    const result = await ProductModel.findOne({_id});
     return result;
 }
 
 
 export const ProductServices ={
     createProductDB,
-    getAllProductDB,
+    getAllProductFromDB,
+    getSingleProductFromDB,
     
 
 }
