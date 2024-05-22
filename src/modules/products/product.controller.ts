@@ -100,6 +100,40 @@ const deleteSingleProduct = async (req:Request, res: Response) =>{
             error: error
         })
     }
+}
+
+
+// update product
+const updateSingleProduct = async (req:Request, res: Response) =>{
+    try {
+    const id = req.params.productId;
+    const updateData = {
+        $set :{
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category,
+            tags: req.body.tags,
+            variants: req.body.variants,
+            inventory: req.body.inventory,
+        }
+    };
+  
+    const result = await ProductServices.updateProductFromDB(id, updateData)
+
+    // send response
+    res.status(200).json({
+        success: true,
+        message: 'Product updated successfully',
+        data: result,
+    })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error
+        })
+    }
 
 }
 
@@ -109,5 +143,6 @@ export const ProductControllers ={
     getAllProduct,
     getSingleProduct,
     deleteSingleProduct,
+    updateSingleProduct,
 
 }
