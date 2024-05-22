@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { ProductServices } from "./product.service";
+import { ProductServices} from "./product.service";
+import productValidationSchema from "./product.validation";
+
+
+// product releated controllers:
 
 // create/add a new product on db
 const addProduct = async (req:Request, res: Response) =>{
@@ -7,9 +11,11 @@ const addProduct = async (req:Request, res: Response) =>{
         // const {product: productData} = req.body;
         const product = req.body;
 
+        const zodParsedData = productValidationSchema.parse(product)
+
     // will call service function to send this data
     // const result = await ProductServices.createProductDB(productData)
-    const result = await ProductServices.createProductDB(product)
+    const result = await ProductServices.createProductDB(zodParsedData)
 
     // send response
     res.status(200).json({
@@ -18,7 +24,11 @@ const addProduct = async (req:Request, res: Response) =>{
         data: result,
     })
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error
+        })
     }
 
 }
@@ -27,7 +37,6 @@ const addProduct = async (req:Request, res: Response) =>{
 // retieve all product
 const getAllProduct = async (req:Request, res: Response) =>{
     try {
-  
     const result = await ProductServices.getAllProductFromDB()
 
     // send response
@@ -37,7 +46,11 @@ const getAllProduct = async (req:Request, res: Response) =>{
         data: result,
     })
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error
+        })
     }
 
 }
@@ -57,20 +70,44 @@ const getSingleProduct = async (req:Request, res: Response) =>{
         data: result,
     })
     } catch (error) {
-        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error
+        })
     }
 
 }
 
+// delete product
 
+const deleteSingleProduct = async (req:Request, res: Response) =>{
+    try {
+    const {productId} = req.params;
+  
+    const result = await ProductServices.deleteProductFromDB(productId)
 
+    // send response
+    res.status(200).json({
+        success: true,
+        message: 'Product deleted successfully',
+        data: null,
+    })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error
+        })
+    }
 
-
+}
 
 
 export const ProductControllers ={
     addProduct,
     getAllProduct,
     getSingleProduct,
+    deleteSingleProduct,
 
 }
