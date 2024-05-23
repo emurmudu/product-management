@@ -13,7 +13,7 @@ Before you begin, ensure you have met the following requirements:
 2. Navigate to the project directory:
 - cd your-project
 3. Install dependencies:
-- npm install
+```npm install```
 4. Set up environment variables:
 - Create a .env file in the root directory.
 - Define any necessary environment variables in the .env file. For example:
