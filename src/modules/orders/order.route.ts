@@ -5,7 +5,6 @@ import { OrderController } from './order.controller';
 
 const router = express.Router();
 
-// order routes
 // create post
 router.post('/create-order', OrderController.createOrder)
 

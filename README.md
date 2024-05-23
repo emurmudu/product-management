@@ -42,8 +42,8 @@ To run the application, follow these steps:
 - For production mode : ```npm run start:prod```
 
 
-### Endpoints
--
-
-- **name** (string):
-    - The name of the product.
+### API Endpoints
+- Procut management root url for CRUD  : 
+```/api/products```
+- Order management root url for CRUD  : 
+```/api/orders```
