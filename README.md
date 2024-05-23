@@ -13,7 +13,7 @@ Before you begin, ensure you have met the following requirements:
 2. Navigate to the project directory:
 - cd your-project
 3. Install dependencies:
-```npm install```
+    ```npm install```
 4. Set up environment variables:
 - Create a .env file in the root directory.
 - Define any necessary environment variables in the .env file. For example:
@@ -24,22 +24,22 @@ Before you begin, ensure you have met the following requirements:
 
 ### Install necessary packages:
 
-- express
-    - npm install express
-- Mongoose
-    - npm install mongoose --save
-- TypeScript
-    - npm install typescript --save-dev
-- CORS
-    - npm i cors
-- Dotenv
-    - npm i dotenv
+- express : 
+     ```npm install express```
+- Mongoose :
+     ```npm install mongoose --save```
+- TypeScript :
+     ```npm install typescript --save-dev```
+- CORS :
+     ```npm i cors```
+- Dotenv :
+     ```npm i dotenv```
 
 ### Usage
 To run the application, follow these steps:
 1. Start the server:
-- For development mode : npm run start:dev
-- For production mode : npm run start:prod
+- For development mode : ```npm run start:dev```
+- For production mode : ```npm run start:prod```
 
 
 ### Endpoints
