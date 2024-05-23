@@ -1,6 +1,6 @@
 
 
-import { boolean, z } from "zod";
+import { z } from "zod";
 
 const variantValidationSchema = z.object({
     type: z.string().trim().min(1, { message: "Type is required" }),

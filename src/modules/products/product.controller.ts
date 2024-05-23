@@ -8,16 +8,12 @@ import productValidationSchema from "./product.validation";
 // create/add a new product on db
 const addProduct = async (req:Request, res: Response) =>{
     try {
-        // const {product: productData} = req.body;
         const product = req.body;
 
         const zodParsedData = productValidationSchema.parse(product)
 
-    // will call service function to send this data
-    // const result = await ProductServices.createProductDB(productData)
     const result = await ProductServices.createProductDB(zodParsedData)
 
-    // send response
     res.status(200).json({
         success: true,
         message: 'Product is created successfully',
@@ -39,7 +35,6 @@ const getAllProduct = async (req:Request, res: Response) =>{
     try {
     const result = await ProductServices.getAllProductFromDB()
 
-    // send response
     res.status(200).json({
         success: true,
         message: 'Products fetched successfully',
@@ -63,7 +58,6 @@ const getSingleProduct = async (req:Request, res: Response) =>{
   
     const result = await ProductServices.getSingleProductFromDB(productId)
 
-    // send response
     res.status(200).json({
         success: true,
         message: 'Product fetched successfully',
@@ -86,12 +80,14 @@ const deleteSingleProduct = async (req:Request, res: Response) =>{
     const {productId} = req.params;
   
     const result = await ProductServices.deleteProductFromDB(productId)
+    if(!result){
+        throw new Error('Product not deleted')
+    }
 
-    // send response
     res.status(200).json({
         success: true,
         message: 'Product deleted successfully',
-        data: null,
+        data: null 
     })
     } catch (error) {
         res.status(500).json({
@@ -121,7 +117,6 @@ const updateSingleProduct = async (req:Request, res: Response) =>{
   
     const result = await ProductServices.updateProductFromDB(id, updateData)
 
-    // send response
     res.status(200).json({
         success: true,
         message: 'Product updated successfully',
@@ -138,11 +133,36 @@ const updateSingleProduct = async (req:Request, res: Response) =>{
 }
 
 
+// search products
+const searchProducts = async (req:Request, res: Response) =>{
+    try {
+    const name = req.query.name as string;
+  
+    const result = await ProductServices.searchProductFromDB(name)
+    
+    res.status(200).json({
+        success: true,
+        message:`Products matching search term '${name}' fetched successfully!`,
+        data: result,
+    })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
+            error: error
+        })
+    }
+
+}
+
+
+
 export const ProductControllers ={
     addProduct,
     getAllProduct,
     getSingleProduct,
     deleteSingleProduct,
     updateSingleProduct,
+    searchProducts,
 
 }

@@ -3,11 +3,27 @@
 
 // order related service methods
 
+// import { string } from "zod";
+import { ProductModel } from "../products/product.model";
 import { TOrder } from "./order.interface";
 import { OrderModel } from "./order.model";
 
-// create a order
+
 const createOrderDB = async (order:TOrder) =>{
+    const product = await ProductModel.findById(order.productId);
+    if(!product){
+        throw new Error('Product not found');
+    }
+
+    if (product.inventory.quantity < order.quantity) {
+        throw new Error('Insufficient quantity available in inventory');
+    }
+
+    product.inventory.quantity -= order.quantity;
+    product.inventory.inStock = product.inventory.quantity > 0;
+
+    await product.save();
+
     const result = await OrderModel.create(order);
     return result;
 }
@@ -18,16 +34,16 @@ const getAllOrderFromDB = async()=>{
     return result;
 }
 
-// get single order
-const getSingleOrderFromDB = async(email:string)=>{
+// get single order by email
+const getOrderByEmailFromDB = async(email : string)=>{
     const result = await OrderModel.find({email});
     return result;
 }
 
 
 
-export const ProductServices2 ={
+export const OrderServices ={
     createOrderDB,
     getAllOrderFromDB,
-    getSingleOrderFromDB,
+    getOrderByEmailFromDB,
 }
