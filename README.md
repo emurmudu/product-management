@@ -1,6 +1,10 @@
 # Project Name : product-management
-A product management application developed with TypeScript, MongoDB and Mongoose. 
-### Prerequisites
+A product management application developed with TypeScript, MongoDB and Mongoose with zod validation. 
+
+### Project Github repository link: https://github.com/emurmudu/product-management
+### Project live server link : https://product-management-sepia.vercel.app
+
+## Gettting started
 Before you begin, ensure you have met the following requirements:
 
 - Node.js installed on your local machine
@@ -9,13 +13,13 @@ Before you begin, ensure you have met the following requirements:
 ### Installation
 
 1. Clone the repository:
-- git clone https://github.com/emurmudu/product-management
+- ```git clone https://github.com/emurmudu/product-management```
 2. Navigate to the project directory:
 - cd your-project
 3. Install dependencies:
     ```npm install```
 4. Set up environment variables:
-- Create a .env file in the root directory.
+- Create a ```.env``` file in the root directory.
 - Define any necessary environment variables in the .env file. For example:
     - PORT=5000
     - DB_URI=mongodb://localhost:27017/mydatabase
@@ -40,7 +44,6 @@ To run the application, follow these steps:
 1. Start the server:
 - For development mode : ```npm run start:dev```
 - For production mode : ```npm run start:prod```
-
 
 ### API Endpoints
 - Procut management root url for CRUD  : 

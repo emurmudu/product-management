@@ -3,7 +3,7 @@
 import { Request, Response } from "express";
 import { OrderServices } from "./order.service";
 import orderValidationSchema from "./order.validation";
-import { string, z } from "zod";
+import {  z } from "zod";
 
 // create new orders
 const createOrder = async (req: Request, res: Response) => {
@@ -16,7 +16,7 @@ const createOrder = async (req: Request, res: Response) => {
     // send response
     res.status(200).json({
       success: true,
-      message: "Order is created successfully",
+      message: "Order created successfully",
       data: result,
     });
   } catch (error) {
@@ -77,25 +77,31 @@ const getAllOrder = async (req: Request, res: Response) => {
 // retrieve single order by email
 
 const getSingleOrder = async (req: Request, res: Response) =>{
-    try {
-    // const {orderId} = req.params;
-    const email = req.query.email  as string;
-    const result = await OrderServices.getOrderByEmailFromDB(email);
+  try {
+    const { email } = req.query;
 
-    // send response
-    res.status(200).json({
-        success: true,
-        message: `Order fetched successfully with ${email}`,
-        data: result,
-    })
-    } catch (error) {
-        res.status(500).json({
+    if (email) {
+        const result = await OrderServices.getOrderByEmailFromDB(email as string);
+
+        // send response
+        return res.status(200).json({
+            success: true,
+            message: `Order fetched successfully for ${email}`,
+            data: result,
+        });
+    } else {
+        return res.status(400).json({
             success: false,
-            message: 'Something went wrong',
-            error: error,
-        })
+            message: 'Email query parameter is required',
+        });
     }
-
+} catch (error) {
+    return res.status(500).json({
+        success: false,
+        message: 'Something went wrong',
+        error: error,
+    });
+}
 }
 
 

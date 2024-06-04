@@ -16,7 +16,7 @@ const addProduct = async (req:Request, res: Response) =>{
 
     res.status(200).json({
         success: true,
-        message: 'Product is created successfully',
+        message: 'Product created successfully',
         data: result,
     })
     } catch (error) {
@@ -152,6 +152,7 @@ const searchProducts = async (req:Request, res: Response) =>{
             error: error
         })
     }
+
 
 }
 

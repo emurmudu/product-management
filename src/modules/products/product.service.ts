@@ -33,13 +33,15 @@ const updateProductFromDB = async(_id:string, update:object)=>{
 }
 
 
+// search product
 const searchProductFromDB = async(name : string)=>{
-    const regex = new RegExp(name, 'i');
+    
     const result = await ProductModel.find({
-        name: { $regex: regex }
-    });
-    return result;
-}
+        name: new RegExp(name, 'i') })
+        return result;
+    };
+
+
 
 
 

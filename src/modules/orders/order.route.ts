@@ -6,12 +6,12 @@ import { OrderController } from './order.controller';
 const router = express.Router();
 
 // create post
-router.post('/create-order', OrderController.createOrder)
+router.post('/', OrderController.createOrder)
 
 // get all orders
 router.get('/', OrderController.getAllOrder)
 
-// get single order
+//route to get single order by email query
 router.get('/', OrderController.getSingleOrder)
 
 
