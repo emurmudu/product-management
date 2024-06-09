@@ -7,6 +7,7 @@ import productValidationSchema from "./product.validation";
 
 // create/add a new product on db
 const addProduct = async (req:Request, res: Response) =>{
+    
     try {
         const product = req.body;
 
@@ -32,8 +33,9 @@ const addProduct = async (req:Request, res: Response) =>{
 
 // retieve all product
 const getAllProduct = async (req:Request, res: Response) =>{
+    console.log(req.query);
     try {
-    const result = await ProductServices.getAllProductFromDB()
+    const result = await ProductServices.getAllProductFromDB(req.query)
 
     res.status(200).json({
         success: true,

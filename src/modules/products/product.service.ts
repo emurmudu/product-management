@@ -9,8 +9,16 @@ const createProductDB = async (product:TProduct) =>{
 }
 
 // retrieve all products
-const getAllProductFromDB = async()=>{
-    const result = await ProductModel.find();
+const getAllProductFromDB = async(query: Record<string, unknown>)=>{
+    let searchTerm = '';
+  if(query?.searchTerm){
+    searchTerm = query?.searchTerm as string
+  }
+    const result = await ProductModel.find({
+        $or:['name', 'description', 'category'].map((field) =>({
+          [field]: {$regex: searchTerm, $options:'i'}
+        }))
+      });
     return result;
 }
 
