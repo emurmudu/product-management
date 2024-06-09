@@ -33,7 +33,6 @@ const addProduct = async (req:Request, res: Response) =>{
 
 // retieve all product
 const getAllProduct = async (req:Request, res: Response) =>{
-    console.log(req.query);
     try {
     const result = await ProductServices.getAllProductFromDB(req.query)
 

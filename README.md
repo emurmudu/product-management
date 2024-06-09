@@ -4,8 +4,7 @@ A product management application developed with TypeScript, MongoDB and Mongoose
 ### Project Github repository link: https://github.com/emurmudu/product-management
 ### Project live server link : https://product-management-sepia.vercel.app
 
-Project Github repository link: https://github.com/emurmudu/product-management
-Project live server link : https://product-management-sepia.vercel.app
+
 
 ## Gettting started
 Before you begin, ensure you have met the following requirements:
