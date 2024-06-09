@@ -10,17 +10,25 @@ const createProductDB = async (product:TProduct) =>{
 
 // retrieve all products
 const getAllProductFromDB = async(query: Record<string, unknown>)=>{
+    const queryObj = {...query};
+    const searchFields = ['name'];
     let searchTerm = '';
   if(query?.searchTerm){
     searchTerm = query?.searchTerm as string
   }
-    const result = await ProductModel.find({
-        $or:['name', 'description', 'category'].map((field) =>({
-          [field]: {$regex: searchTerm, $options:'i'}
-        }))
-      });
+  const searchQuery = ProductModel.find({
+    $or:searchFields.map((field) =>({
+      [field]: {$regex: searchTerm, $options:'i'}
+    }))
+  })
+
+  const excludeFields = ['searchTerm'];
+  excludeFields.forEach((el) => delete queryObj[el]);
+
+    const result = await searchQuery.find(queryObj);
     return result;
 }
+
 
 // retrieve a specific product by id
 const getSingleProductFromDB = async(_id:string)=>{

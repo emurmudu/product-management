@@ -29,8 +29,23 @@ const createOrderDB = async (order:TOrder) =>{
 }
 
 // get all order
-const getAllOrderFromDB = async()=>{
-    const result = await OrderModel.find()
+const getAllOrderFromDB = async(query: Record<string, unknown>)=>{
+    const queryObj = {...query};
+    const searchFields = ['email'];
+    let searchTerm = '';
+    if(query?.searchTerm){
+      searchTerm = query?.searchTerm as string
+    }
+    const searchQuery = OrderModel.find({
+      $or:searchFields.map((field) =>({
+        [field]: {$regex: searchTerm, $options:'i'}
+      }))
+    })
+  
+    const excludeFields = ['searchTerm'];
+    excludeFields.forEach((el) => delete queryObj[el]);
+
+    const result = await searchQuery.find(queryObj)
     return result;
 }
 

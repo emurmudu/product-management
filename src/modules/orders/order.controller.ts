@@ -57,7 +57,7 @@ const createOrder = async (req: Request, res: Response) => {
 // retrieve all orders
 const getAllOrder = async (req: Request, res: Response) => {
   try {
-    const result = await OrderServices.getAllOrderFromDB();
+    const result = await OrderServices.getAllOrderFromDB(req.query);
 
     // send response
     res.status(200).json({
